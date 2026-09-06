@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- Tree View -->
+    <record id="view_department_tree" model="ir.ui.view">
+        <field name="name">student.department.tree</field>
+        <field name="model">student.department</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Form View -->
+    <record id="view_department_form" model="ir.ui.view">
+        <field name="name">student.department.form</field>
+        <field name="model">student.department</field>
+        <field name="arch" type="xml">
+            <form string="Department">
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name" placeholder="e.g. Computer Science"/></h1>
+                    </div>
+
+                    <notebook>
+                        <page string="Students">
+                            <field name="student_ids">
+                                <list editable="bottom">
+                                    <field name="name"/>
+                                    <field name="age"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_department" model="ir.actions.act_window">
+        <field name="name">Departments</field>
+        <field name="res_model">student.department</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem id="menu_department" name="Departments" parent="menu_student_management_root"
+              action="action_department" sequence="20"/>
+
+</odoo>

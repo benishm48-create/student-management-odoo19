@@ -1,0 +1,25 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_student_student_teacher,student.student.teacher,model_student_student,group_student_teacher,1,1,1,1
+access_student_department_teacher,student.department.teacher,model_student_department,group_student_teacher,1,1,1,1
+access_student_subject_teacher,student.subject.teacher,model_student_subject,group_student_teacher,1,1,1,1
+access_student_fee_structure_teacher,student.fee.structure.teacher,model_student_fee_structure,group_student_teacher,1,1,1,1
+access_student_semester_teacher,student.semester.teacher,model_student_semester,group_student_teacher,1,1,1,1
+access_student_teacher_teacher,student.teacher.teacher,model_student_teacher,group_student_teacher,1,1,1,1
+access_student_semester_fee_teacher,student.semester.fee.teacher,model_student_semester_fee,group_student_teacher,1,1,1,1
+access_student_mark_teacher,student.mark.teacher,model_student_mark,group_student_teacher,1,1,1,1
+access_student_send_email_wizard_teacher,student.send.email.wizard.teacher,model_student_send_email_wizard,group_student_teacher,1,1,1,1
+access_assign_department_wizard_teacher,assign.department.wizard.teacher,model_assign_department_wizard,group_student_teacher,1,1,1,1
+access_bulk_update_wizard_teacher,bulk.update.wizard.teacher,model_bulk_update_wizard,group_student_teacher,1,1,1,1
+access_print_confirm_wizard_teacher,student.print.confirm.wizard.teacher,model_student_print_confirm_wizard,group_student_teacher,1,1,1,1
+access_print_confirm_wizard_user,student.print.confirm.wizard.user,model_student_print_confirm_wizard,group_student_user,1,0,1,0
+access_student_student_user,student.student.user,model_student_student,group_student_user,1,0,0,0
+access_student_department_user,student.department.user,model_student_department,group_student_user,1,0,0,0
+access_student_subject_user,student.subject.user,model_student_subject,group_student_user,1,0,0,0
+access_student_fee_structure_user,student.fee.structure.user,model_student_fee_structure,group_student_user,1,0,0,0
+access_student_semester_user,student.semester.user,model_student_semester,group_student_user,1,0,0,0
+access_student_teacher_user,student.teacher.user,model_student_teacher,group_student_user,1,0,0,0
+access_student_semester_fee_user,student.semester.fee.user,model_student_semester_fee,group_student_user,1,0,0,0
+access_student_mark_user,student.mark.user,model_student_mark,group_student_user,1,0,0,0
+access_product_make_user,product.make user,model_product_make,base.group_user,1,1,1,1
+access_teacher_leave_teacher,teacher.leave.teacher,model_teacher_leave,group_student_teacher,1,1,1,0
+access_teacher_leave_hod,teacher.leave.hod,model_teacher_leave,group_student_hod,1,1,1,1

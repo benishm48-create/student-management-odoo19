@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- List View for Fee Structure -->
+    <record id="view_student_fee_structure_list" model="ir.ui.view">
+        <field name="name">student.fee.structure.list</field>
+        <field name="model">student.fee.structure</field>
+        <field name="arch" type="xml">
+            <list string="Fee Structure" editable="bottom">
+                <field name="fee_type"/>
+                <field name="amount"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Form View for Fee Structure -->
+    <record id="view_student_fee_structure_form" model="ir.ui.view">
+        <field name="name">student.fee.structure.form</field>
+        <field name="model">student.fee.structure</field>
+        <field name="arch" type="xml">
+            <form string="Fee Structure">
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="fee_type" placeholder="e.g. Tuition Fee"/></h1>
+                    </div>
+                    <group string="Fee Details">
+                        <field name="amount"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action: Fee Structure -->
+    <record id="action_fee_structure" model="ir.actions.act_window">
+        <field name="name">Fee Structure</field>
+        <field name="res_model">student.fee.structure</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first fee structure!
+            </p>
+        </field>
+    </record>
+
+    <!-- Menu -->
+    <menuitem id="menu_fee_structure"
+              name="Fees"
+              parent="menu_student_management_root"
+              action="action_fee_structure"
+              sequence="40"/>
+
+</odoo>

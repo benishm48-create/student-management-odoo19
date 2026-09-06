@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+
+    <!-- ===================================================== -->
+    <!-- LIST VIEW -->
+    <!-- ===================================================== -->
+
+    <record id="view_teacher_leave_list" model="ir.ui.view">
+
+        <field name="name">teacher.leave.list</field>
+        <field name="model">teacher.leave</field>
+
+        <field name="arch" type="xml">
+
+            <list string="Teacher Leaves">
+
+                <field name="name"/>
+                <field name="teacher_id"/>
+                <field name="department_id"/>
+                <field name="leave_from"/>
+                <field name="leave_to"/>
+                <field name="substitute_teacher_id"/>
+                <field name="state"/>
+                <field name="approved_by"/>
+                <field name="approved_date"/>
+
+            </list>
+
+        </field>
+
+    </record>
+
+
+    <!-- ===================================================== -->
+    <!-- FORM VIEW -->
+    <!-- ===================================================== -->
+
+    <record id="view_teacher_leave_form" model="ir.ui.view">
+
+        <field name="name">teacher.leave.form</field>
+        <field name="model">teacher.leave</field>
+
+        <field name="arch" type="xml">
+
+            <form string="Teacher Leave">
+
+                <header>
+
+                    <!-- ===================================== -->
+                    <!-- TEACHER SUBMIT -->
+                    <!-- ===================================== -->
+
+                    <button
+                        name="action_submit"
+                        string="Submit"
+                        type="object"
+                        class="btn-primary"
+                        invisible="state != 'draft'"
+                        groups="students_management.group_student_teacher"
+                        confirm="Submit this leave request for HOD approval?"
+                    />
+
+
+                    <!-- ===================================== -->
+                    <!-- HOD APPROVE -->
+                    <!-- ===================================== -->
+
+                    <button
+                        name="action_approve"
+                        string="Approve"
+                        type="object"
+                        class="btn-success"
+                        invisible="state != 'submitted'"
+                        groups="students_management.group_student_hod,base.group_system"
+                        confirm="Approve this teacher leave? The request will become Approved first, then student emails will be sent."
+                    />
+
+
+                    <!-- ===================================== -->
+                    <!-- RESET -->
+                    <!-- ===================================== -->
+
+                    <button
+                        name="action_reset_draft"
+                        string="Reset to Draft"
+                        type="object"
+                        invisible="state not in ('submitted', 'approved')"
+                        groups="students_management.group_student_hod,base.group_system"
+                    />
+
+
+                    <!-- ===================================== -->
+                    <!-- STATUS -->
+                    <!-- ===================================== -->
+
+                    <field
+                        name="state"
+                        widget="statusbar"
+                        statusbar_visible="draft,submitted,approved"
+                        readonly="1"
+                    />
+
+                </header>
+
+
+                <!-- ================================================= -->
+                <!-- SHEET -->
+                <!-- ================================================= -->
+
+                <sheet>
+
+                    <div class="oe_title">
+
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+
+                    </div>
+
+
+                    <!-- ================================================= -->
+                    <!-- TEACHER + LEAVE INFORMATION -->
+                    <!-- ================================================= -->
+
+                    <group>
+
+                        <!-- TEACHER INFORMATION -->
+
+                        <group string="Teacher Information">
+
+                            <field name="teacher_id"/>
+
+                            <field name="department_id"/>
+
+                            <field
+                                name="subject_ids"
+                                widget="many2many_tags"
+                            />
+
+                            <field name="substitute_teacher_id"/>
+
+                        </group>
+
+
+                        <!-- LEAVE INFORMATION -->
+
+                        <group string="Leave Information">
+
+                            <field name="leave_from"/>
+
+                            <field name="leave_to"/>
+
+                            <field name="reason"/>
+
+                            <field
+                                name="approved_by"
+                                readonly="1"
+                                invisible="state != 'approved'"
+                            />
+
+                            <field
+                                name="approved_date"
+                                readonly="1"
+                                invisible="state != 'approved'"
+                            />
+
+                        </group>
+
+                    </group>
+
+
+                    <!-- ================================================= -->
+                    <!-- STUDENTS -->
+                    <!-- ================================================= -->
+
+                    <notebook>
+
+                        <page string="Students">
+
+                            <field
+                                name="student_ids"
+                                readonly="1"
+                            >
+
+                                <list>
+
+                                    <field name="name"/>
+
+                                    <field name="department_id"/>
+
+                                    <field
+                                        name="subject_ids"
+                                        widget="many2many_tags"
+                                    />
+
+                                    <field name="state"/>
+
+                                    <field name="overall_percentage"/>
+
+                                    <field name="overall_grade"/>
+
+                                    <field name="phone"/>
+
+                                    <field name="email"/>
+
+                                </list>
+
+                            </field>
+
+                        </page>
+
+                    </notebook>
+
+                </sheet>
+
+
+                <!-- ================================================= -->
+                <!-- CHATTER / LOG NOTE -->
+                <!-- ================================================= -->
+
+                <chatter/>
+
+            </form>
+
+        </field>
+
+    </record>
+
+
+    <!-- ===================================================== -->
+    <!-- SEARCH VIEW -->
+    <!-- ===================================================== -->
+
+    <record id="view_teacher_leave_search" model="ir.ui.view">
+
+        <field name="name">teacher.leave.search</field>
+        <field name="model">teacher.leave</field>
+
+        <field name="arch" type="xml">
+
+            <search>
+
+                <field name="name"/>
+
+                <field name="teacher_id"/>
+
+                <field name="department_id"/>
+
+                <field name="state"/>
+
+
+                <filter
+                    name="draft"
+                    string="Draft"
+                    domain="[('state', '=', 'draft')]"
+                />
+
+
+                <filter
+                    name="submitted"
+                    string="Pending Approval"
+                    domain="[('state', '=', 'submitted')]"
+                />
+
+
+                <filter
+                    name="approved"
+                    string="Approved"
+                    domain="[('state', '=', 'approved')]"
+                />
+
+            </search>
+
+        </field>
+
+    </record>
+
+
+    <!-- ===================================================== -->
+    <!-- ACTION -->
+    <!-- ===================================================== -->
+
+    <record
+        id="action_teacher_leave"
+        model="ir.actions.act_window"
+    >
+
+        <field name="name">Teacher Leave</field>
+
+        <field name="res_model">teacher.leave</field>
+
+        <field name="view_mode">list,form</field>
+
+    </record>
+
+
+    <!-- ===================================================== -->
+    <!-- MENU -->
+    <!-- ===================================================== -->
+
+    <menuitem
+        id="menu_teacher_leave"
+        name="Teacher Leave"
+        parent="menu_student_management_root"
+        action="action_teacher_leave"
+        sequence="30"
+    />
+
+</odoo>

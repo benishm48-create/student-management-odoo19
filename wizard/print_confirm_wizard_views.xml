@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_print_confirm_wizard_form" model="ir.ui.view">
+        <field name="name">student.print.confirm.wizard.form</field>
+        <field name="model">student.print.confirm.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Confirm Print">
+                <field name="student_id" invisible="1"/>
+                <p>
+                    Do you want to print
+                    <strong><field name="student_id" readonly="1" nolabel="1" class="oe_inline"/></strong>'s
+                    details as a PDF?
+                </p>
+                <footer>
+                    <button name="action_confirm_print" type="object"
+                            string="Confirm" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_print_confirm_wizard" model="ir.actions.act_window">
+        <field name="name">Confirm Print</field>
+        <field name="res_model">student.print.confirm.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+</odoo>

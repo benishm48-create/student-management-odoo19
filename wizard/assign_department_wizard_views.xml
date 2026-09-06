@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Wizard Form View -->
+    <record id="view_assign_department_wizard_form" model="ir.ui.view">
+        <field name="name">assign.department.wizard.form</field>
+        <field name="model">assign.department.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Assign Department">
+                <group>
+                    <field name="department_id"/>
+                </group>
+                <footer>
+                    <button name="action_assign" type="object"
+                            string="Assign" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action that opens the wizard as a popup -->
+    <record id="action_assign_department_wizard" model="ir.actions.act_window">
+        <field name="name">Assign Department</field>
+        <field name="res_model">assign.department.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+</odoo>

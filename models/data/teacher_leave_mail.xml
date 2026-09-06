@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+
+    <record id="email_template_teacher_leave" model="mail.template">
+
+        <field name="name">Teacher Leave Notification</field>
+
+        <field name="model_id" ref="model_teacher_leave"/>
+
+        <field name="subject">Teacher Leave - {{ object.teacher_id.name }}</field>
+
+        <field name="email_from">{{ user.email or user.company_id.email or 'noreply@example.com' }}</field>
+
+        <field name="body_html" type="html">
+            <div>
+                <p>Dear Student,</p>
+                <p>Your teacher has been approved for leave.</p>
+                <table border="1" cellpadding="8" cellspacing="0">
+                    <tr>
+                        <td><strong>Teacher</strong></td>
+                        <td><t t-out="object.teacher_id.name"/></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Department</strong></td>
+                        <td><t t-out="object.department_id.name"/></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Subject</strong></td>
+                        <td>
+                            <t t-foreach="object.subject_ids" t-as="subject">
+                                <t t-out="subject.name"/>
+                                <br/>
+                            </t>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>Leave From (Absent From)</strong></td>
+                        <td><t t-out="object.leave_from"/></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Teacher Returns On</strong></td>
+                        <td><t t-out="object.leave_to"/></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Reason for Leave</strong></td>
+                        <td><t t-out="object.reason"/></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Substitute Teacher</strong></td>
+                        <td>
+                            <t t-if="object.substitute_teacher_id">
+                                <t t-out="object.substitute_teacher_id.name"/>
+                                <t t-if="object.substitute_teacher_id.email">
+                                    <br/>Email: <t t-out="object.substitute_teacher_id.email"/>
+                                </t>
+                                <t t-if="object.substitute_teacher_id.phone">
+                                    <br/>Phone: <t t-out="object.substitute_teacher_id.phone"/>
+                                </t>
+                            </t>
+                            <t t-else="">Not assigned</t>
+                        </td>
+                    </tr>
+                </table>
+                <p>Please attend classes with the substitute teacher mentioned above until your regular teacher returns on the date shown.</p>
+                <p>Thank you.</p>
+            </div>
+        </field>
+
+    </record>
+
+</odoo>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Wizard Form View -->
+    <record id="view_bulk_update_wizard_form" model="ir.ui.view">
+        <field name="name">bulk.update.wizard.form</field>
+        <field name="model">bulk.update.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Bulk Update Students">
+                <group>
+                    <field name="age"/>
+                    <field name="department_id"/>
+                </group>
+                <footer>
+                    <button name="action_ok" type="object" string="OK" class="btn-primary"/>
+                    <button name="action_cancel" type="object" string="Cancel" class="btn-secondary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action that opens this wizard as a popup -->
+    <record id="action_bulk_update_wizard" model="ir.actions.act_window">
+        <field name="name">Bulk Update</field>
+        <field name="res_model">bulk.update.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <!-- Server action: makes this wizard show up in the list view's "Action" (gear) menu -->
+    <record id="action_server_bulk_update" model="ir.actions.server">
+        <field name="name">Bulk Update Students</field>
+        <field name="model_id" ref="model_student_student"/>
+        <field name="binding_model_id" ref="model_student_student"/>
+        <field name="state">code</field>
+        <field name="code">action = env.ref('students_management.action_bulk_update_wizard').read()[0]</field>
+        <field name="group_ids" eval="[(4, ref('students_management.group_student_teacher'))]"/>
+    </record>
+
+</odoo>

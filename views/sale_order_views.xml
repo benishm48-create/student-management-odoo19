@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_sale_order_move_fields" model="ir.ui.view">
+
+        <field name="name">sale.order.move.fields</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+
+        <field name="arch" type="xml">
+
+            <!-- Move Sales Team and Source to the top -->
+            <xpath expr="//group[@name='order_details']" position="inside">
+
+                <xpath expr="//page[@name='other_information']//field[@name='team_id']"
+                       position="move"/>
+
+                <xpath expr="//page[@name='other_information']//field[@name='source_id']"
+                       position="move"/>
+
+            </xpath>
+
+            <!-- Add Category BEFORE Product, then filter Product by the chosen Category -->
+            <xpath expr="//field[@name='order_line']/list/field[@name='product_template_id']"
+                   position="before">
+
+                <field name="product_category_id"/>
+
+            </xpath>
+
+            <xpath expr="//field[@name='order_line']/list/field[@name='product_template_id']"
+                   position="attributes">
+
+                <attribute name="domain">[('categ_id', '=', product_category_id)]</attribute>
+
+            </xpath>
+
+        </field>
+
+    </record>
+
+</odoo>
